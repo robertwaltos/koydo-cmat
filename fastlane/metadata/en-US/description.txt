@@ -1,0 +1,11 @@
+Prepare for the CMAT (Common Management Admission Test) with Koydo — your AI-powered study companion.
+
+Features:
+- Quantitative Techniques & Data Interpretation practice questions
+- Logical Reasoning practice questions
+- Language Comprehension practice questions
+- General Awareness practice questions
+- AI-powered analytics to identify weak areas
+- 10 free questions per day, unlimited with Premium
+
+CMAT is conducted by NTA. This application is an independent study tool and is not affiliated with or endorsed by NTA.

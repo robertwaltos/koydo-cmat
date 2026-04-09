@@ -1,0 +1,1 @@
+CMAT,Quantitative Techniques & Data Interpretation,Logical Reasoning,Language Comprehension,General 

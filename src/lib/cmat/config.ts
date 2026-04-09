@@ -1,0 +1,32 @@
+export const EXAM_CONFIG = {
+  examId: "EXAM040",
+  slug: "cmat",
+  name: "CMAT",
+  fullName: "Common Management Admission Test",
+  description: "Free CMAT practice for Quantitative, Logical Reasoning, Language, and GK with AI analytics.",
+  url: "https://cmat.koydo.app",
+  category: "Admissions",
+  subcategory: "Business school admissions",
+  country: "India",
+  region: "South Asia",
+  languages: ["English"] as const,
+  primaryLanguage: "en",
+  sections: [
+    "Quantitative Techniques & Data Interpretation",
+    "Logical Reasoning",
+    "Language Comprehension",
+    "General Awareness",
+  ] as const,
+  testFormat: "Computer-based" as const,
+  questionFormat: "MCQ" as const,
+  scoring: "Score out of 400" as const,
+  themeColor: "#4F46E5",
+  themeColorDark: "#4338CA",
+  ipRisk: "Medium" as const,
+  ipDisclaimer: "CMAT is conducted by NTA. This application is an independent study tool and is not affiliated with or endorsed by NTA.",
+  freemiumGate: { dailyQuestions: 10 },
+  contentReuseCluster: "aptitude_business",
+  uiEngineProfile: "timed_objective",
+} as const;
+
+export type ExamConfig = typeof EXAM_CONFIG;
