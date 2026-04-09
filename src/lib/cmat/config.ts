@@ -1,0 +1,45 @@
+// CMAT Configuration
+// Generated from top_200_exam_universe_seed.csv
+
+export const EXAM_CONFIG = {
+  examId: "EXAM040",
+  slug: "cmat",
+  name: "CMAT",
+  fullName: "Common Management Admission Test",
+  alias: "Common Management Admission Test",
+  family: "CMAT",
+  category: "Admissions",
+  subcategory: "MBA admissions",
+  country: "India",
+  region: "South Asia",
+  languages: ["English"],
+  estimatedAnnualTakers: "varies",
+  testingWindow: "Jan-Apr",
+  schedulePattern: "Annual",
+  ageGroup: "20-30",
+  targetUser: "MBA applicant",
+  delivery: "Computer-based",
+  questionTypes: ["MCQ"],
+  adaptivity: "Linear",
+  sections: "Quant, LR, language, GK, innovation",
+  scoringMode: "Scaled",
+  essayOrSpeaking: "No",
+  ipRisk: "Medium",
+  contentReuse: "aptitude_business",
+  uiEngine: "timed_objective",
+  monetizationPotential: "Medium",
+  tier: "Tier 3",
+  launchWave: "Wave 5",
+  themeColor: "#1E40AF",
+  themeColorDark: "#1E3A8A",
+  localizationComplexity: "Low",
+  offlineNeeded: false,
+  mobileFirst: true,
+  locale: "en",
+  isRTL: false,
+  freemiumGate: {
+    dailyQuestions: 10,
+  },
+} as const;
+
+export type ExamConfig = typeof EXAM_CONFIG;

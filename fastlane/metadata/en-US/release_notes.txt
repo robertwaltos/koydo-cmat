@@ -1,0 +1,5 @@
+Initial release of Koydo CMAT Prep.
+
+• Practice questions
+• Score tracking
+• AI tutor integration
