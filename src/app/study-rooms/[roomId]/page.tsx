@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
@@ -33,19 +33,19 @@ export default function StudyRoomPage({ params }: { params: Promise<{ roomId: st
 
   useEffect(() => {
     if (!roomId) return;
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    supabase.auth.getUser().then(({ data: { user } }: { data: { user: import("@supabase/supabase-js").AuthUser | null } }) => {
       if (!user) { router.push(`/auth/sign-in?returnTo=/study-rooms/${roomId}`); return; }
       setUserId(user.id);
       setDisplayName(user.user_metadata?.full_name ?? user.email?.split("@")[0] ?? "Anon");
     });
 
     supabase.from("study_rooms").select("name, host_id").eq("id", roomId).single()
-      .then(({ data }) => { if (data) setRoom(data); else router.push("/study-rooms"); });
+      .then(({ data }: { data: { name: string; host_id: string } | null }) => { if (data) setRoom(data); else router.push("/study-rooms"); });
 
     supabase.from("study_room_messages")
       .select("id, user_id, display_name, text, created_at")
       .eq("room_id", roomId).order("created_at").limit(50)
-      .then(({ data }) => {
+      .then(({ data }: { data: Array<{ id: string; user_id: string; display_name: string; text: string; created_at: string }> | null }) => {
         if (data) setMessages(data.map((m) => ({ id: m.id, user_id: m.user_id, display_name: m.display_name, text: m.text, ts: new Date(m.created_at).getTime() })));
       });
   }, [roomId]);
@@ -57,20 +57,20 @@ export default function StudyRoomPage({ params }: { params: Promise<{ roomId: st
 
     ch.on("presence", { event: "sync" }, () => {
       const state = ch.presenceState<Presence>();
-      setPresence(Object.values(state).flat());
+      setPresence(Object.values(state).flat() as Presence[]);
     });
 
-    ch.on("broadcast", { event: "chat" }, ({ payload }) => {
+    ch.on("broadcast", { event: "chat" }, ({ payload }: { payload: Message }) => {
       setMessages((prev) => [...prev, payload as Message]);
     });
 
-    ch.on("broadcast", { event: "quiz_start" }, ({ payload }) => {
+    ch.on("broadcast", { event: "quiz_start" }, ({ payload }: { payload: { question: QuizQuestion; duration: number } }) => {
       const q = payload as { question: QuizQuestion; duration: number };
       const endsAt = Date.now() + q.duration * 1000;
       setQuiz({ question: q.question, endsAt, votes: {}, myVote: null, revealed: false });
     });
 
-    ch.on("broadcast", { event: "quiz_vote" }, ({ payload }) => {
+    ch.on("broadcast", { event: "quiz_vote" }, ({ payload }: { payload: { option: number } }) => {
       setQuiz((prev) => prev ? { ...prev, votes: { ...prev.votes, [payload.option]: (prev.votes[payload.option] ?? 0) + 1 } } : prev);
     });
 
@@ -78,7 +78,7 @@ export default function StudyRoomPage({ params }: { params: Promise<{ roomId: st
       setQuiz((prev) => prev ? { ...prev, revealed: true } : prev);
     });
 
-    ch.subscribe(async (status) => {
+    ch.subscribe(async (status: string) => {
       if (status === "SUBSCRIBED") {
         await ch.track({ user_id: userId, display_name: displayName, joined_at: new Date().toISOString() });
       }

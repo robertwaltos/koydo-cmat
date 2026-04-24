@@ -35,7 +35,7 @@ export async function GET() {
     .eq("user_id", user.id);
 
   const avgScore = attempts?.length
-    ? attempts.reduce((sum, a) => sum + (a.score ?? 0), 0) / attempts.length
+    ? attempts.reduce((sum: number, a: { score: number | null }) => sum + (a.score ?? 0), 0) / attempts.length
     : 0;
 
   return NextResponse.json({

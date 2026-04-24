@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { EXAM_CONFIG } from "@/lib/act/config";
@@ -15,7 +15,7 @@ export default async function KnowledgeGraphPage({ searchParams }: { searchParam
     .in("quality_tier", ["silver", "gold"])
     .limit(50);
 
-  const selected = concept ? concepts?.find((c) => c.slug === concept) : null;
+  const selected = concept ? concepts?.find((c: {slug: string}) => c.slug === concept) : null;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -51,7 +51,7 @@ export default async function KnowledgeGraphPage({ searchParams }: { searchParam
         <aside>
           <h3 className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">Concepts</h3>
           <div className="space-y-1 max-h-[600px] overflow-y-auto pr-1">
-            {(concepts ?? []).map((c) => (
+            {(concepts ?? []).map((c: {id: string; slug: string; canonical_name: string; quality_tier: string | null; domain_code: string | null; learner_stage: string | null}) => (
               <Link key={c.id} href={`/learn/knowledge-graph?concept=${c.slug}`}
                 className={["flex items-center gap-2 rounded-lg p-2.5 text-sm transition hover:bg-[var(--card)]",
                   c.slug === concept ? "bg-[var(--accent-light)] text-[var(--accent)]" : "text-[var(--foreground)]"].join(" ")}>

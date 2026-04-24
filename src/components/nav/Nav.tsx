@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import type { User } from "@supabase/supabase-js";
+import type { AuthUser as User } from "@supabase/supabase-js";
 import { LanguageSelector } from "./LanguageSelector";
 import { MusicToggle } from "./MusicToggle";
 import { AccountMenu } from "./AccountMenu";

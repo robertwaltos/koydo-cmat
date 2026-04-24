@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -30,11 +30,11 @@ export default function SettingsPage() {
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    supabase.auth.getUser().then(({ data: { user } }: { data: { user: import("@supabase/supabase-js").AuthUser | null } }) => {
       if (!user) { router.push("/auth/sign-in?returnTo=/account/settings"); return; }
       supabase.from("user_profiles").select("display_name, locale, theme, email_notifications, push_notifications")
         .eq("user_id", user.id).maybeSingle()
-        .then(({ data }) => {
+        .then(({ data }: { data: Record<string, unknown> | null }) => {
           if (data) {
             setDisplayName((data as { display_name: string | null }).display_name ?? "");
             setLocale((data as { locale: string | null }).locale ?? "en");

@@ -116,7 +116,7 @@ export default async function ProgressPage() {
         <section>
           <h2 className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)] mb-4">Recent Sessions</h2>
           <div className="space-y-2">
-            {(attempts ?? []).slice(0, 20).map((a) => (
+            {(attempts ?? []).slice(0, 20).map((a: { id: string; domain: string | null; started_at: string | null }) => (
               <div key={a.id} className="koydo-card flex items-center gap-4 p-3">
                 <span className="text-sm capitalize flex-1">{a.domain?.replace(/_/g, " ") ?? "Mixed"}</span>
                 <span className="text-xs text-[var(--muted)]">{a.started_at ? new Date(a.started_at).toLocaleDateString() : ""}</span>

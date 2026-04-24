@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
     serverActions: { bodySizeLimit: "2mb" },
   },
   typescript: { ignoreBuildErrors: false },
+  webpack: (config) => {
+    config.resolve.symlinks = false;
+    return config;
+  },
   async headers() {
     return [{
       source: "/(.*)",

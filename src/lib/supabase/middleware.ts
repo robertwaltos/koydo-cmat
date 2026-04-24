@@ -1,9 +1,9 @@
-import { createServerClient } from "@supabase/ssr";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export interface SupabaseSessionResult {
   response: NextResponse;
-  user: import("@supabase/supabase-js").User | null;
+  user: import("@supabase/supabase-js").AuthUser | null;
 }
 
 export async function updateSupabaseSession(
@@ -20,7 +20,7 @@ export async function updateSupabaseSession(
       getAll() {
         return request.cookies.getAll();
       },
-      setAll(cookiesToSet) {
+      setAll(cookiesToSet: { name: string; value: string; options?: CookieOptions }[]) {
         cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
         response = NextResponse.next({ request: { headers: request.headers } });
         cookiesToSet.forEach(({ name, value, options }) =>
@@ -33,7 +33,7 @@ export async function updateSupabaseSession(
     },
   });
 
-  let user: import("@supabase/supabase-js").User | null = null;
+  let user: import("@supabase/supabase-js").AuthUser | null = null;
   try {
     const { data } = await supabase.auth.getUser();
     user = data.user ?? null;

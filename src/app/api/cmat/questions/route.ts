@@ -54,7 +54,7 @@ export async function GET(req: NextRequest) {
   if (error) return Response.json({ error: error.message }, { status: 500 });
 
   const questions = await Promise.all(
-    (rawQuestions ?? []).map(async (q) => {
+    (rawQuestions ?? []).map(async (q: Record<string, unknown>) => {
       const options = (q.options as string[]) ?? [];
       let correct_option_index = 0;
       for (let i = 0; i < options.length; i++) {
@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
           break;
         }
       }
-      const numDiff = typeof q.difficulty === "number" ? q.difficulty : parseFloat(q.difficulty ?? "0.5");
+      const numDiff = typeof q.difficulty === "number" ? q.difficulty : parseFloat((q.difficulty as string | null | undefined) ?? "0.5");
       const diffLabel = numDiff <= 0.35 ? "easy" : numDiff >= 0.66 ? "hard" : "medium";
       return {
         id: q.id,
